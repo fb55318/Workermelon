@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { searchUser, addFriend } from '../services/friendService';
+import '../styles/Modal.css';
 
 interface AddFriendModalProps {
   userId: string;

@@ -1,0 +1,27 @@
+.name-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.name-container input {
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.name-container button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
