@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
 import AddFriendModal from '../components/AddFriendModal';
+import '../styles/ChatPage.css';
 
 const socket: Socket = io('http://localhost:3000');
 

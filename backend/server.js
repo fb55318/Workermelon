@@ -24,9 +24,8 @@ mongoose.connect(process.env.MONGO_URI, {
 }).then(() => console.log("✅ 已連接 MongoDB"))
   .catch((err) => console.error("❌ 連線失敗", err));
 
-// 載入登入路由
-const authRoutes = require("./routes/UserRoutes");
-app.use("/api", authRoutes);
+
+
 
 // 測試 Socket
 io.on("connection", (socket) => {

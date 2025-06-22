@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { login, register } from '../services/authService';
 import type { AuthResponse } from '../types/User';
+import '../styles/AuthPage.css';
 
 
 export default function AuthPage({ setName, setHasName }: {
