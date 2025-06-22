@@ -5,16 +5,33 @@ const jwt = require("jsonwebtoken");
 
 
 //註冊
+// 註冊功能 - 新增更多使用者資訊欄位
 exports.register = async (req, res) => {
-  const { username, password } = req.body;
+  // 從前端請求中解構出所有需要的欄位
+  const { username, password, nickname, job, gender, birthday } = req.body;
+
   try {
+    // 將使用者密碼進行雜湊處理（bcrypt 加密）
     const hashed = await bcrypt.hash(password, 10);
-    await User.create({ username, password: hashed });
+
+    // 建立使用者資料（新增的欄位會一併寫入資料庫）
+    await User.create({
+      username,
+      password: hashed,
+      nickname,   // 可以為中文，MongoDB 支援 UTF-8
+      job,        // 例如 "工程師", "學生", "設計師"...
+      gender,     // 例如 "男", "女", "其他"
+      birthday    // 建議格式為 "1990-01-01"
+    });
+
+    // 回傳成功訊息
     res.status(201).json({ message: "註冊成功" });
   } catch (err) {
+    // 若帳號已存在或其他錯誤，回傳錯誤訊息
     res.status(400).json({ error: "註冊失敗，帳號可能已存在" });
   }
 };
+
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
