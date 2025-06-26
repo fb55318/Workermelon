@@ -10,15 +10,19 @@ interface ChatMessage {
   text: string;
 }
 
-export default function ChatPage({ name, onLogout }: {
+export default function ChatPage({
+  name,
+  userId,
+  onLogout,
+}: {
   name: string;
+  userId: string;
   onLogout: () => void;
 }) {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [showAddFriend, setShowAddFriend] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const currentUserId = localStorage.getItem('userId');
 
   useEffect(() => {
     socket.on('chat message', (msg: ChatMessage) => {
@@ -44,6 +48,7 @@ export default function ChatPage({ name, onLogout }: {
     <div className="chat-wrapper">
       <h2 className="chat-title">聊天室（你是 {name}）</h2>
       <button onClick={onLogout} style={{ marginBottom: '10px' }}>登出</button>
+
       <div className="chat-box">
         {messages.map((msg, i) => (
           <div key={i} className={`chat-message ${msg.sender === name ? 'self' : ''}`}>
@@ -52,6 +57,7 @@ export default function ChatPage({ name, onLogout }: {
         ))}
         <div ref={messagesEndRef} />
       </div>
+
       <div className="chat-input-bar">
         <input
           value={input}
@@ -61,15 +67,17 @@ export default function ChatPage({ name, onLogout }: {
         />
         <button onClick={send}>送出</button>
       </div>
+
       <button
         onClick={() => setShowAddFriend(true)}
         style={{ marginBottom: '10px', marginLeft: '10px' }}
       >
         搜尋好友
       </button>
-      {showAddFriend && currentUserId && (
+
+      {showAddFriend && (
         <AddFriendModal
-          userId={currentUserId}
+          userId={userId}
           onClose={() => setShowAddFriend(false)}
         />
       )}

@@ -4,10 +4,7 @@ import type { AuthResponse, User } from '../types/User';
 import '../styles/AuthPage.css';
 
 
-export default function AuthPage({ setName, setHasName }: {
-  setName: (name: string) => void;
-  setHasName: (hasName: boolean) => void;
-}) {
+export default function AuthPage({ setUser }: { setUser: (user: User) => void }) {
   // 欄位的狀態管理
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -23,17 +20,15 @@ export default function AuthPage({ setName, setHasName }: {
   const [message, setMessage] = useState('');
 
   // 當使用者按下「送出」按鈕時觸發
-  const handleSubmit = async () => {
+   const handleSubmit = async () => {
     if (!username || !password) return setMessage('請填寫帳號與密碼');
 
     try {
       let data: AuthResponse;
 
       if (mode === 'login') {
-        // 執行登入請求
         data = await login(username, password);
       } else {
-        // 執行註冊請求（包含所有新增欄位）
         data = await register({
           username,
           password,
@@ -44,15 +39,8 @@ export default function AuthPage({ setName, setHasName }: {
         });
       }
 
-      // 顯示回傳訊息
-      setMessage(data.message);
-
-       // 儲存完整 user 資訊（可選擇是否要存入 localStorage）
       const user: User = data.user;
-
-
-      setName(user.nickname || user.username); // 優先顯示暱稱
-      setHasName(true);
+      setUser(user); // ⬅️ 通知 App 設定使用者資訊
     } catch (err: any) {
       setMessage(err.response?.data?.error || '發生錯誤');
     }

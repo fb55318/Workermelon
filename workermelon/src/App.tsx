@@ -1,30 +1,24 @@
 import { useState } from 'react';
 import AuthPage from './pages/AuthPage';
 import ChatPage from './pages/ChatPage';
+import type { User } from './types/User';
 
 function App() {
-  const [name, setName] = useState(localStorage.getItem('username') || '');
-  const [hasName, setHasName] = useState(!!localStorage.getItem('username'));
+  const [user, setUser] = useState<User | null>(null); // ⬅️ 改為完整 user 狀態
 
   const logout = () => {
-    localStorage.removeItem('username');
-    localStorage.removeItem('userId');
-    setName('');
-    setHasName(false);
+    setUser(null); // ⬅️ 清空使用者資訊（不再用 localStorage）
   };
 
-  return hasName ? (
-    <ChatPage name={name} onLogout={logout} />
+  return user ? (
+    <ChatPage
+      name={user.nickname || user.username} // 顯示暱稱或帳號
+      userId={user._id}                     // ⬅️ 傳入給加好友模組
+      onLogout={logout}
+    />
   ) : (
-    <AuthPage setName={setName} setHasName={setHasName} />
+    <AuthPage setUser={setUser} /> // 登入/註冊後設置完整 user
   );
 }
 
 export default App;
-
-
-
-
-
-
-
