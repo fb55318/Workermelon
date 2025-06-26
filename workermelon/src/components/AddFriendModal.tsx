@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { searchUser, addFriend } from '../services/friendService';
 import '../styles/Modal.css';
 
@@ -11,6 +11,12 @@ export default function AddFriendModal({ userId, onClose }: AddFriendModalProps)
   const [username, setUsername] = useState('');
   const [searchResult, setSearchResult] = useState<'not_found' | 'found' | ''>('');
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    // 每次輸入 username 時，重設搜尋狀態與提示訊息
+    setSearchResult('');
+    setMessage('');
+  }, [username]);
 
   const handleSearch = async () => {
     try {
@@ -27,7 +33,10 @@ export default function AddFriendModal({ userId, onClose }: AddFriendModalProps)
     try {
       const data = await addFriend(userId, username);
       setMessage(data.message);
-      setTimeout(onClose, 1000);
+      setTimeout(() => {
+        setMessage('');
+        onClose(); // 一秒後關閉視窗
+      }, 1000);
     } catch (err: any) {
       setMessage(err.response?.data?.error || '發生錯誤');
     }
