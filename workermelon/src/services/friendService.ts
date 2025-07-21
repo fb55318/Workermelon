@@ -12,3 +12,10 @@ export const addFriend = async (userId: string, friendUsername: string) => {
   });
   return res.data;
 };
+
+
+
+export const getFriends = async (userId: string) => {
+  const res = await axios.get(`http://localhost:3000/api/User/${userId}/friends`);
+  return res.data;
+};

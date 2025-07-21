@@ -99,3 +99,36 @@ exports.addFriend = async (req, res) => {
   await user.save();
   return res.json({ message: '好友已新增' });
 };
+
+
+exports.getFriends = async (req, res) => {
+  const { userId } = req.params;
+  
+  // --- 開始加入 log ---
+  console.log('--- 收到好友列表請求 ---');
+  console.log('請求的 userId:', userId); 
+  // ---
+
+  try {
+    const user = await User.findById(userId).populate('friends', 'username nickname');
+    
+    // --- 加入 log ---
+    console.log('查詢到的使用者:', user ? user.username : '找不到使用者');
+    if (user) {
+      console.log('關聯查詢後的好友列表:', user.friends);
+    }
+    // ---
+
+    if (!user) return res.status(404).json({ error: '使用者不存在' });
+
+    // 原本是 res.json({ friends: user.friends });
+    // 我們在前端已經修改了處理方式，所以這裡直接回傳陣列
+    res.json(user.friends);
+
+  } catch (err) {
+    // --- 加入 log ---
+    console.error('取得好友清單時發生嚴重錯誤:', err);
+    // ---
+    res.status(500).json({ error: '取得好友清單失敗' });
+  }
+};

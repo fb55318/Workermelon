@@ -2,7 +2,7 @@ export interface User {
   _id: string;
   username: string;
   nickname: string;
-  job: string;
+  occupation: { type: String, default: "" },
   gender: string;
   birthday: string;
 }

@@ -9,7 +9,7 @@ export default function AuthPage({ setUser }: { setUser: (user: User) => void })
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
-  const [occupation, setJob] = useState('');
+   const [occupation, setOccupation] = useState('');
   const [gender, setGender] = useState('');
   const [birthday, setBirthday] = useState('');
 
@@ -67,7 +67,7 @@ export default function AuthPage({ setUser }: { setUser: (user: User) => void })
       {mode === 'register' && (
         <>
           <input value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder="暱稱（可輸入中文）" />
-          <input value={occupation} onChange={(e) => setJob(e.target.value)} placeholder="職業" />
+          <input value={occupation} onChange={(e) => setOccupation(e.target.value)} placeholder="職業" />
           <select value={gender} onChange={(e) => setGender(e.target.value)}>
             <option value="">選擇性別</option>
             <option value="男">男</option>
