@@ -12,7 +12,7 @@ export const addFriend = async (userId: string, friendUsername: string) => {
     userId,
     friendUsername
   });
-  return res.data;
+  return res.data; 
 };
 
 
