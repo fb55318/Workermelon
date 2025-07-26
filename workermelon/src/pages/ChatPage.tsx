@@ -19,8 +19,9 @@ interface Friend {
   username: string;
   nickname: string;
 }
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const socket: Socket = io(API_URL);
 
-const socket: Socket = io('http://localhost:3000');
 
 export default function ChatPage({
   name, // 'name' 這裡其實就是 nickname

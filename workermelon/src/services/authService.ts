@@ -13,7 +13,9 @@ export const register = async (data: {
   gender: string;
   birthday: string;
 }): Promise<AuthResponse> => {
-  const res = await axios.post("http://localhost:3000/api/User/register", data);
+  //const res = await axios.post("http://localhost:3000/api/User/register", data);
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+  const res = await axios.post(`${API_URL}/api/User/register`, data);
   return res.data;
 };
 
@@ -21,7 +23,8 @@ export const login = async (
   username: string,
   password: string
 ): Promise<AuthResponse> => {
-  const res = await axios.post("http://localhost:3000/api/User/login", {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+  const res = await axios.post(`${API_URL}/api/User/login`, {
     username,
     password
   });
