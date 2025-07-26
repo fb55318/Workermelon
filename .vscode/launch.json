@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Nodemon Debug (Backend)",
+      
+      // 指向 backend 資料夾中 nodemon 的正確路徑
+      // 因為你已經安裝了 nodemon，所以這個路徑現在是有效的
+      "runtimeExecutable": "${workspaceFolder}/backend/node_modules/.bin/nodemon.cmd",
+
+      // 指向 backend 資料夾中的啟動檔案
+      "program": "${workspaceFolder}/backend/server.js",
+      
+      // 將工作目錄切換到 backend，確保相對路徑能正確解析
+      "cwd": "${workspaceFolder}/backend",
+
+      "restart": true,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

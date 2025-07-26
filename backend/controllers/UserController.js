@@ -1,21 +1,24 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const User = require("../models/User");//這是我們連接 MongoDB 中 'users' 集合的橋樑。
+const bcrypt = require("bcryptjs");//專門用來「加密」和「比對」密碼的工具，不能將使用者的原始密碼直接存入資料庫
+const jwt = require("jsonwebtoken");//用來產生和驗證「Token」的工具。Token 就像一張有期限的「通行證」。
 
 
 
 //註冊
 // 註冊功能 - 新增更多使用者資訊欄位
-exports.register = async (req, res) => {
+
+exports.register = async (req, res) => {// `exports.register` 讓這個函式可以被其他檔案（例如 UserRoutes.js）引用。  // `(req, res)` 是 Express 的標準參數：req (request) 代表前端傳來的請求物件，res (response) 代表我們要回傳給前端的回應物件。
   const { username, password, nickname, occupation, gender, birthday } = req.body;
   try {
-    const existingUser = await User.findOne({ username });
+    // 檢查帳號是否存在
+    const existingUser = await User.findOne({ username }); // `await` 會暫停函式執行，直到 `User.findOne` 這個非同步操作完成
+     // `User.findOne({ username })` 會去資料庫的 'users' 集合中尋找一筆 `username` 欄位與傳入值相同的資料。
     if (existingUser) {
       return res.status(409).json({ error: "帳號已存在" });
     }
-
+     // 加密密碼
     const hashed = await bcrypt.hash(password, 10);
-
+    //建立新使用者
     const newUser = await User.create({
       username,
       password: hashed,
@@ -24,7 +27,7 @@ exports.register = async (req, res) => {
       gender,
       birthday
     });
-
+    //回傳成功訊息
     res.status(201).json({
       message: "註冊成功",
       user: {
