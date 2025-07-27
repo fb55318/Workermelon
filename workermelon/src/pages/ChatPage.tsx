@@ -125,7 +125,7 @@ export default function ChatPage({
   return (
     <div className="chat-center-box">
       {/* ... 上方的圖片和工具列不變 ... */}
-      <img src="/public/images/outlook_toptool.png" alt="Outlook Toolbar" className="toolbar-image" />
+      <img src="/images/outlook_toptool.png" alt="Outlook Toolbar" className="toolbar-image" />
       <div className="chat-toolbar"></div>
 
       <div className="chat-main-layout">
@@ -151,7 +151,7 @@ export default function ChatPage({
           <div className="mail-header">
             <div className="mail-subject">Uber Eats來點涼的訂餐 55 折 + 額外 5 次優惠</div>
             <div className="mail-from">
-              <img src="/public/images/fakeuser.jpg" alt="avatar" className="mail-avatar" />
+              <img src="/images/fakeuser.jpg" alt="avatar" className="mail-avatar" />
               <div>
                 <div className="mail-sender">使用者:{name}</div>
                 {/* --- MODIFIED: 動態顯示收件者 --- */}
