@@ -125,7 +125,7 @@ export default function ChatPage({
   return (
     <div className="chat-center-box">
       {/* ... 上方的圖片和工具列不變 ... */}
-      <img src="/images/outlook_toptool.png" alt="Outlook Toolbar" className="toolbar-image" />
+      <img src="/images/outlook_toptool.PNG" alt="Outlook Toolbar" className="toolbar-image" />
       <div className="chat-toolbar"></div>
 
       <div className="chat-main-layout">
